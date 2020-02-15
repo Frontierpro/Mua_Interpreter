@@ -21,6 +21,10 @@ public class Int {
         Handler handler = new Handler(namespace, instset, state);
         try {
             String num = handler.getNext(in, instbuffer);
+            if (num.charAt(0) == '\"')
+                num = num.substring(1);
+            if (num.length() < 1)
+                throw new MuaException("Number cannot be empty!");
             if (!handler.isNumber(num))
                 throw new MuaException("'" + num +"'->Number format error!");
             double ceil = Double.valueOf(num);
