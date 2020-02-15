@@ -1,4 +1,4 @@
-package function
+package function;
 
 import java.util.*;
 import java.io.*;
@@ -24,6 +24,8 @@ public class Func {
     public String exec (Scanner in, Vector<String> instbuffer) throws MuaException {
         Handler handler = new Handler(namespace, instset, state);
         try {
+            if (op.equals("run"))
+                return runList(handler, in, instbuffer);
             String[] content = {""};
             if (namespace.getLocalList().isInListSet(op) >= 0)
                 content = namespace.getLocalList().getListContent(op);
@@ -51,6 +53,29 @@ public class Func {
                 } catch (MuaException e) {
                     throw e;
                 }
+            }
+            return res;
+        } catch (MuaException e) {
+            throw e;
+        }
+    }
+
+    public String runList (Handler handler, Scanner in, Vector<String> instbuffer) throws MuaException {
+        try {
+            String liststr = handler.getNext(in, instbuffer);
+            if (!handler.checkList(liststr))
+                throw new MuaException("'" + liststr + "'->List format error!");
+            liststr = liststr.substring(1, liststr.length() - 1).trim();
+            Vector<String> listbuffer = new Vector<String> ();
+            String res = "";
+            String[] listArray = liststr.split(" ");
+            if (listArray.length == 1 && listArray[0].equals("null"))
+                return "null";
+            for (String str : listArray)
+                listbuffer.add(str);
+            while (listbuffer.size() > 0) {
+                String op = handler.getNextStr(in, listbuffer);
+                res = handler.exec(in, listbuffer, op);
             }
             return res;
         } catch (MuaException e) {
