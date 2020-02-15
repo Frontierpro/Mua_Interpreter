@@ -69,7 +69,7 @@ public class Func {
             Vector<String> listbuffer = new Vector<String> ();
             String res = "";
             String[] listArray = liststr.split(" ");
-            if (listArray.length == 1 && listArray[0].equals("null"))
+            if (listArray.length == 1 && listArray[0].equals(""))
                 return "null";
             for (String str : listArray)
                 listbuffer.add(str);
