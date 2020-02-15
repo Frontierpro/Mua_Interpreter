@@ -34,10 +34,10 @@ public class Repeat {
             String res = "";
             for (int cnt = 0; cnt < num; cnt++) {
                 String[] listArray = liststr.split(" ");
-                if (listArray.length == 1 && listArray[0].equals("null"))
-                    return "null";
                 for (String str : listArray)
                     listbuffer.add(str);
+                if (listbuffer.size() == 1 && listbuffer.get(0).equals(""))
+                    return "null";
                 while (listbuffer.size() > 0) {
                     String op = handler.getNextStr(in, listbuffer);
                     res = handler.exec(in, listbuffer, op);
