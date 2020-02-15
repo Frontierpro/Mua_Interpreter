@@ -7,7 +7,7 @@ import mua.*;
 
 public class And {
 
-    private bool state;
+    private boolean state;
     private InstSet instset;
     private NameSpace namespace;
 
