@@ -59,7 +59,7 @@ public class Handler {
                 IsBool isbool = new IsBool(namespace, instset, state);
                 res = isbool.exec(in, instbuffer);
             }
-            else if (op.equals("isname")) {
+            else if (op.equals("isempty")) {
                 IsEmpty isempty = new IsEmpty(namespace, instset, state);
                 res = isempty.exec(in, instbuffer);
             }
@@ -119,6 +119,38 @@ public class Handler {
                 Not not = new Not(namespace, instset, state);
                 res = not.exec(in, instbuffer);
             }
+            else if (op.equals("word")) {
+                Word w = new Word(namespace, instset, state);
+                res = w.exec(in, instbuffer);
+            }
+            else if (op.equals("sentence")) {
+                Sentence sentence = new Sentence(namespace, instset, state);
+                res = sentence.exec(in, instbuffer);
+            }
+            else if (op.equals("list")) {
+                function.List l = new function.List(namespace, instset, state);
+                res = l.exec(in, instbuffer);
+            }
+            else if (op.equals("join")) {
+                Join join = new Join(namespace, instset, state);
+                res = join.exec(in, instbuffer);
+            }
+            else if (op.equals("first")) {
+                First first = new First(namespace, instset, state);
+                res = first.exec(in, instbuffer);
+            }
+            else if (op.equals("last")) {
+                Last last = new Last(namespace, instset, state);
+                res = last.exec(in, instbuffer);
+            }
+            else if (op.equals("butfirst")) {
+                ButFirst butfirst = new ButFirst(namespace, instset, state);
+                res = butfirst.exec(in, instbuffer);
+            }
+            else if (op.equals("butlast")) {
+                ButLast butlast = new ButLast(namespace, instset, state);
+                res = butlast.exec(in, instbuffer);
+            }
             else if (op.equals("repeat")) {
                 Repeat repeat = new Repeat(namespace, instset, state);
                 res = repeat.exec(in, instbuffer);
@@ -139,6 +171,34 @@ public class Handler {
                 Export export = new Export(namespace, instset, state);
                 res = export.exec(in, instbuffer);
             }
+            else if (op.equals("random")) {
+                function.Random random = new function.Random(namespace, instset, state);
+                res = random.exec(in, instbuffer);
+            }
+            else if (op.equals("int")) {
+                Int integer = new Int(namespace, instset, state);
+                res = integer.exec(in, instbuffer);
+            }
+            else if (op.equals("sqrt")) {
+                Sqrt sqrt = new Sqrt(namespace, instset, state);
+                res = sqrt.exec(in, instbuffer);
+            }
+            else if (op.equals("wait")) {
+                Wait wait = new Wait(namespace, instset, state);
+                res = wait.exec(in, instbuffer);
+            }
+            else if (op.equals("save")) {
+                Save save = new Save(namespace, instset, state);
+                res = save.exec(in, instbuffer);
+            }
+            else if (op.equals("load")) {
+                Load load = new Load(namespace, instset, state);
+                res = load.exec(in, instbuffer);
+            }
+            else if (op.equals("erall")) {
+                Erall erall = new Erall(namespace, instset, state);
+                res = erall.exec(in, instbuffer);
+            }
             else if (op.equals("poall")) {
                 Poall poall = new Poall(namespace, instset, state);
                 res = poall.exec(in, instbuffer);
@@ -150,6 +210,10 @@ public class Handler {
             else if (namespace.isInListSet(op)) {
                 Func func = new Func(namespace, instset, state, op);
                 res = func.exec(in, instbuffer);
+            }
+            else if (op.charAt(0) == '(') {
+                Calc calc = new Calc(namespace, instset, state, op);
+                res = calc.exec(in, instbuffer);
             }
             else
                 throw new MuaException("'" + op + "'->Instruction not found!");
@@ -218,7 +282,7 @@ public class Handler {
             line = line.replaceAll("\n", "").replaceAll("\f", "");
             line = line.replaceAll(" {2,}", " ");
             line = line.trim();
-            if (!line.equals(""))
+            if (!line.equals("") && !line.equals(" "))
                 return line;
             System.out.print(">>> ");
         }
@@ -230,7 +294,7 @@ public class Handler {
         return false;
     }
 
-    public boolean isNumber (String num) {
+    public boolean isInteger (String num) {
         int val = (int)num.charAt(0);
         if (num.length() == 1) {
             if (val >= 48 && val <= 57)
@@ -250,8 +314,47 @@ public class Handler {
         }
     }
 
+    public boolean isNumber (String num) {
+        int val = (int)num.charAt(0);
+        int cnt = 0;
+        if (num.length() == 1) {
+            if (val >= 48 && val <= 57)
+                return true;
+            else
+                return false;
+        }
+        else {
+            if ((val < 48 || val > 57) && val != 45)
+                return false;
+            for (int pos = 1; pos < num.length(); pos++) {
+                val = (int)num.charAt(pos);
+                if (val == 46 && pos < num.length() - 1)
+                    cnt++;
+                else if (val < 48 || val > 57)
+                    return false;
+            }
+            if (cnt > 1)
+                return false;
+            return true;
+        }
+    }
+
     public boolean isBool (String str) {
         if (str.equals("true") || str.equals("false"))
+            return true;
+        return false;
+    }
+
+    public boolean isOp (char c) {
+        if (c == '+')
+            return true;
+        if (c == '-')
+            return true;
+        if (c == '*')
+            return true;
+        if (c == '/')
+            return true;
+        if (c == '%')
             return true;
         return false;
     }
