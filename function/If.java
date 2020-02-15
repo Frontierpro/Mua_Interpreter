@@ -21,6 +21,8 @@ public class If {
         Handler handler = new Handler(namespace, instset, state);
         try {
             String condition = handler.getNext(in, instbuffer);
+            if (condition.charAt(0) == '\"')
+                condition = condition.substring(1);
             if (!handler.isBool(condition))
                 throw new MuaException("'" + condition + "'->Boolean format error!");
             String left = handler.getNext(in, instbuffer);
