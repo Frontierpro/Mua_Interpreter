@@ -23,7 +23,7 @@ public class IsWord {
             String value = handler.getNext(in, instbuffer);
             if (value.length() < 1)
                 return "false";
-            if (value.charAt(0) == '\"')
+            if (value.charAt(0) == '\"' || handler.isNumber(value) || handler.isBool(value))
                 return "true";
             return "false";
         } catch (MuaException e) {
