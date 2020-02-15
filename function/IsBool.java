@@ -21,6 +21,10 @@ public class IsBool {
         Handler handler = new Handler(namespace, instset, state);
         try {
             String value = handler.getNext(in, instbuffer);
+            if (value.charAt(0) != '\"')
+                value = value.substring(1);
+            if (value.length() < 1)
+                throw new MuaException("Bool value cannot be empty!");
             if (handler.isBool(value))
                 return "true";
             return "false";
