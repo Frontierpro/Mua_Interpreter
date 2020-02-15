@@ -77,6 +77,8 @@ public class Calc {
         try {
             while (expressbuffer.size() > 0) {
                 String value = handler.getNext(in, expressbuffer);
+                if (value.charAt(0) == '\"')
+                    value = value.substring(1);
                 if (handler.isInteger(value))
                     operand.add(Integer.valueOf(value));
                 else if (handler.isOp(value.charAt(0))) {
