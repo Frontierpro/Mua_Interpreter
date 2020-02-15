@@ -45,7 +45,7 @@ public class Load {
             Vector<String> loadbuffer = new Vector<String> ();
             for (String str : content)
                 loadbuffer.add(str);
-            if (loadbuffer.size() == 0 || loadbuffer.size() == 1 && loadbuffer.get(0).equals(""))
+            if (loadbuffer.size() == 1 && loadbuffer.get(0).equals(""))
                 return "null";
             while (loadbuffer.size() > 0) {
                 String op = handler.getNextStr(in, loadbuffer);
