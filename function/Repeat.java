@@ -33,11 +33,11 @@ public class Repeat {
             Vector<String> listbuffer = new Vector<String> ();
             String res = "";
             for (int cnt = 0; cnt < num; cnt++) {
-                String[] listArray = liststr.split(" ");
-                for (String str : listArray)
-                    listbuffer.add(str);
-                if (listbuffer.size() == 1 && listbuffer.get(0).equals(""))
+                String[] listarray = liststr.split(" ");
+                if (listarray.length == 1 && listarray[0].equals(""))
                     return "null";
+                for (String str : listarray)
+                    listbuffer.add(str);
                 while (listbuffer.size() > 0) {
                     String op = handler.getNextStr(in, listbuffer);
                     res = handler.exec(in, listbuffer, op);
