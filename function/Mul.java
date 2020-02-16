@@ -23,13 +23,13 @@ public class Mul {
             String left = handler.getNext(in, instbuffer);
             if (left.charAt(0) == '\"')
                 left = left.substring(1);
-            if (!handler.isNumber(left))
-                throw new MuaException("'" + left + "'->Number format error!");
+            if (!handler.isInteger(left))
+                throw new MuaException("'" + left + "'->Integer format error!");
             String right = handler.getNext(in, instbuffer);
             if (right.charAt(0) == '\"')
                 right = right.substring(1);
-            if (!handler.isNumber(right))
-                throw new MuaException("'" + right + "'->Number format error!");
+            if (!handler.isInteger(right))
+                throw new MuaException("'" + right + "'->Integer format error!");
             return String.valueOf(Integer.valueOf(left) * Integer.valueOf(right));
         } catch (MuaException e) {
             throw e;
