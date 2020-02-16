@@ -6,7 +6,7 @@ This is a script interactive interpreter running according to the <em>MUA</em> l
 
 <em>MUA</em> : MakeUp Programming Language
 
-For the regualtion detail, please refer to [MakeUpProgrammingLanguage.pdf](./MakeUpProgrammingLanguage.pdf)
+For the regualtion detail, please refer to [MadeUpProgrammingLanguage.pdf](./MadeUpProgrammingLanguage.pdf)
 
 ## Using Method
 
@@ -64,11 +64,11 @@ Let's have a look at the catalog.
 
 We can easily find that [Mua.java](Mua.java) is the entrance of the interpreter.
 
-The data package stores all data of the interpreter. [InstSet.java](InstSet.java) manages standard instructions supported by the interpreter. [WordSet.java](WordSet.java) uses a stack to store name and value of words. [ListSet.java](ListSet.java) uses a stack to store name and content of lists. [NameSpace.java](NameSpace.java) shares four stacks, manages the local space words, local space lists, global space words and global space lists. Here, the variety <em>state</em> representes localspace mode or globalspace mode.
+The data package stores all data of the interpreter. [InstSet.java](data/InstSet.java) manages standard instructions supported by the interpreter. [WordSet.java](data/WordSet.java) uses a stack to store name and value of words. [ListSet.java](data/ListSet.java) uses a stack to store name and content of lists. [NameSpace.java](data/NameSpace.java) shares four stacks, manages the local space words, local space lists, global space words and global space lists. Here, the variety <em>state</em> representes localspace mode or globalspace mode.
 
 The function package contains the implementation detail of all document defined instructions. Files in this package have same format. So, if any instruction extended, modify the corresponding model or insert a new model. This design pattern makes adding extension easier. And don't forget register new instructions in instset stack in data package, otherwise it won't be recognised by the interpreter.
 
-The mua package provides some other parts. [MuaException.java](MuaException.java) is the subclass of <em>Exception</em>, it can print the exception info. [Interpreter.java](Interpreter.java) initialize the interpreter including allocating dataset and inputbuffer, etc. [Handler.java](Handler.java) provides some general purpose methods.
+The mua package provides some other parts. [MuaException.java](mua/MuaException.java) is the subclass of <em>Exception</em>, it can print the exception info. [Interpreter.java](mua/Interpreter.java) initialize the interpreter including allocating dataset and inputbuffer, etc. [Handler.java](mua/Handler.java) provides some general purpose methods.
 
 This design mode is easier for making extension.
 
