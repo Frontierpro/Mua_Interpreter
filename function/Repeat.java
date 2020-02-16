@@ -23,8 +23,8 @@ public class Repeat {
             String numstr = handler.getNext(in, instbuffer);
             if (numstr.charAt(0) == '\"')
                 numstr = numstr.substring(1);
-            if (!handler.isNumber(numstr))
-                throw new MuaException("'" + numstr + "'->Number format error!");
+            if (!handler.isInteger(numstr))
+                throw new MuaException("'" + numstr + "'->Integer format error!");
             int num = Integer.valueOf(numstr);
             String liststr = handler.getNext(in, instbuffer);
             if (!handler.checkList(liststr))
