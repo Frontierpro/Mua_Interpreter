@@ -271,7 +271,7 @@ public class Handler {
         return instbuffer.remove(0);
     }
 
-    public String getNextLine(Scanner in) {
+    public String getNextLine (Scanner in) {
         while (true) {
             String line = in.nextLine();
             int index = line.indexOf("//");
